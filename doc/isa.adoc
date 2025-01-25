@@ -1,0 +1,23 @@
+== EyeArchV1.0 ISA
+
+=== Instruction Types
+[cols=33*]
+|===
+|*S* 6+| [5:0]opcode 5+| [4:0]src1 5+| [4:0]src2 5+| [4:0]dest 11+| [10:0]N/A
+|*I* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]dest 16+| [15:0]imm
+|*B* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]cond 16+| [15:0]imm
+|*P* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]pin 16+| [15:0]imm
+|===
+
+{empty} +
+
+---
+
+{empty} +
+
+=== Instructions
+[cols=5*]
+|===
+|*Instruction* | *Opcode* | *Type* | *Description* | *Update flags?*
+|NOP| 000000| S | does nothing | false
+|===
