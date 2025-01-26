@@ -3,10 +3,11 @@
 === Instruction Types
 [cols=33*]
 |===
-|*S* 6+| [5:0]opcode 5+| [4:0]src1 5+| [4:0]src2 5+| [4:0]dest 11+| [10:0]N/A
-|*I* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]dest 16+| [15:0]imm
-|*B* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]cond 16+| [15:0]imm
-|*P* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]pin 16+| [15:0]imm
+| *S* 6+| [5:0]opcode 5+| [4:0]src1 5+| [4:0]src2 5+| [4:0]dest 11+| [10:0]N/A
+| *I* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]dest 16+| [15:0]imm
+| *B* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]cond 16+| [15:0]imm
+| *P* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]pin 16+| [15:0]imm
+| *C* 6+| [5:0]opcode 5+| [4:0]cond 5+| [4:0]pin 16+| N/A
 |===
 
 {empty} +
@@ -18,6 +19,94 @@
 === Instructions
 [cols=5*]
 |===
-|*Instruction* | *Opcode* | *Type* | *Description* | *Update flags?*
-|NOP| 000000| S | does nothing | false
+| *Instruction* | *Opcode* | *Type* | *Description* | *Update Flags?*
+| NOP | 000000 | S | does nothing | false
+| ADD | 000001 | S | dest = src1 + src2 | true
+| SUB | 000010 | S | dest = src1 - src2 | true
+| OR | 000011 | S | dest = src1 \| src2 | true
+| AND | 000100 | S | dest = src1 & src2 | true
+| XOR | 000101 | S | dest = src1 ^ src2 | true
+| NOR | 000110 | S | dest = src1 ~\| src2 | true
+| NAND | 000111 | S | dest = src1 ~& src2 | true
+| XNOR | 001000 | S | dest = src1 ~^ src2 | true
+| INV | 001001 | S | dest = ~src1 | true
+| BSHL | 001010 | S | dest = src1 << src2 | true
+| BSHR | 001011 | S | dest = src1 >> src2 | true
+| SBSHL | 001100 | S | dest = src1 <<< src2 | true
+| SBSHR | 001101 | S | dest = src1 >>> src2 | true
+| LDIM | 001110 | I | dest = imm | true
+| ADDI | 001111 | I | dest = src + imm | true
+| SUBI | 010000 | I | dest = src - imm | true
+| ORI | 010001 | I | dest = src \| imm | true
+| ANDI | 010010 | I | dest = src & imm | true
+| XORI | 010011 | I | dest = src ^ imm | true
+| NORI | 010100 | I | dest = src ~\| imm | true
+| NANDI | 010101 | I | dest = src ~& imm | true
+| XNORI | 010110 | I | dest = src ~^ imm | true
+| BSHLI | 010111 | I | dest = src << imm | true
+| BSHRI | 011000 | I | dest = src >> imm | true
+| SBSHLI | 011001 | I | dest = src <<< imm | true
+| SBSHRI | 011010 | I | dest = src >>> imm | true
+| IISUB | 011011 | I | dest = imm - src | true
+| MLD | 011100 | I | dest = ram[imm] | false
+| MST | 011101 | I | ram[imm] = src | false
+| PLD | 011110 | I | dest = io[imm] | false
+| PST | 011111 | I | io[imm] = src | false
+| PINL | 100000 | P | opin[pin] = high | false
+| PINH | 100001 | P | opin[pin] = high | false
+| PML | 100010 | S | dest = ram[src2] | false
+| PMS | 100011 | S | ram[src2] src1 | false
+| PPL | 100100 | S | dest = io[src2] | false
+| PPS | 100101 | S | io[src2] = src1 | false
+| PSH | 100110 | S | ram[sp] = src1; sp++ | false
+| POP | 100111 | S | src = ram[sp], sp-- | false
+| BRC | 101000 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
+| JMP | 101001 | B | pc = imm | false
+| PBR | 101010 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
+| PJM | 101011 | B | pc = src | false
+| PIB | 101100 | P | if (ipin[pin] == high): {pc = imm} else: {pc++} | false
+| PPIB | 101101 | P | if (ipin[pin] == high): {pc = src} else: {pc++} | false
+| CPIH | 101110 | C | if (flagreg[cond]): {opin[pin] = high} | false
+| CPIL | 101111 | C | if (flagreg[cond]): {opin[pin] = low} | false
+| HLT | 111111 | S | stop clock | false
+|===
+
+{empty} +
+
+---
+
+{empty} +
+
+=== Regs
+[cols=3*]
+|===
+| *Name* | *Function* | *Address*
+| pc | program counter, read only| 00000
+| r1 - r30 | gpr | 00001 - 11110
+| sp | stack pointer | 11111
+|===
+
+{empty} +
+
+---
+
+{empty} +
+
+=== conditions
+[cols=3*]
+|===
+| *Name* | *Description* | *address*
+| zero | x == 0 | 00000
+| nzero | x != 0 | 00001
+| cout | cout | 00010
+| ncout | !cout | 00011
+| odd | lsb | 00100
+| even | !lsb | 00101
+| msb | msb | 00110
+| nmsb | !msb | 00111
+| underflow | underflow | 01000
+| nunderflow | !underflow | 01001
+| tzero | x == 0 && !cout && !underflow | 01010
+| nzodd | x != 0 && !lsb | 01011
+| nzeven | x != 0 && lsb | 01100
 |===
