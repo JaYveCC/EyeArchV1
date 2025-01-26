@@ -6,7 +6,7 @@ module alu (
   output logic [15:0] out
 );
 
-  always_comb begin
+  always_latch begin
     case (alu_sel)
       4'b0000 : {c_out,out} = a_in + b_in + {15'b0,c_in};
       4'b0001 : {c_out,out} = a_in - b_in + {15'b0,c_in};

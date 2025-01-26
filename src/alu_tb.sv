@@ -19,26 +19,19 @@ alu dut (
 initial begin
    $dumpfile("alu_tb.vcd");
    $dumpvars(0, alu_tb);
-   a_in = 16'b1001;
-   b_in = 16'b111;
-   c_in = 1'b1;
-   alu_sel = 4'b0;
-   #20
-   a_in = 16'b01011;
-   b_in = 16'b110;
-   c_in = 1'b1;
-   alu_sel = 4'b1;
-   #20
-   a_in = 16'b1101;
-   b_in = 16'b101;
-   c_in = 1'b0;
-   alu_sel = 4'b0;
-   #20
-   a_in = 16'b1111111111111111;
-   b_in = 16'b1111111111111111;
-   c_in = 1'b1;
-   alu_sel = 4'b0;
-   #20
-   $monitor("done");
+
+   alu_sel = 4'b1111;
+
+   for (int i = 0; i < 16; i++) begin
+		alu_sel = alu_sel + 4'b0001;
+      /* verilator lint_off WIDTHTRUNC */
+      a_in = $random;
+      b_in = $random;
+      c_in = $random;
+      /* verilator lint_off WIDTHTRUNC */
+      #20
+      $display(i);
+   end
+   $display("done");
 end
 endmodule
