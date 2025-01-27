@@ -82,7 +82,7 @@
 [cols=3*]
 |===
 | *Name* | *Function* | *Address*
-| pc | hardwired zero | 00000
+| r0 | hardwired zero | 00000
 | r1 - r30 | gpr | 00001 - 11110
 | sp | stack pointer | 11111
 |===
