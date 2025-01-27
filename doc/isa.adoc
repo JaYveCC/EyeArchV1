@@ -6,7 +6,6 @@
 | *S* 6+| [5:0]opcode 5+| [4:0]src1 5+| [4:0]src2 5+| [4:0]dest 11+| [10:0]N/A
 | *I* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]dest 16+| [15:0]imm
 | *B* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]cond 16+| [15:0]imm
-| *C* 6+| [5:0]opcode 5+| [4:0]cond 5+| [4:0]pin 16+| [15:0]N/A
 |===
 
 {empty} +
@@ -61,8 +60,6 @@
 | JMP | 100111 | B | pc = imm | false
 | PBR | 101000 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
 | PJM | 101001 | B | pc = src | false
-| CPIH | 101010 | C | if (flagreg[cond]): {opin[pin] = high} | false
-| CPIL | 101011 | C | if (flagreg[cond]): {opin[pin] = low} | false
 | LPC | 101100 | S | src = pc | false
 | SSP | 101101 | S | sp = dest | false
 | LSP | 101110 | S | src = sp | false
