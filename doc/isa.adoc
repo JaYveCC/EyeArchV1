@@ -85,7 +85,7 @@
 |===
 | *Name* | *Function* | *Address*
 | r0 | hardwired zero | 00000
-| r1 - r31 | gpr | 00001
+| r1 - r31 | gpr | 00001 - 11111
 |===
 
 {empty} +
