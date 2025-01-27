@@ -6,7 +6,6 @@
 | *S* 6+| [5:0]opcode 5+| [4:0]src1 5+| [4:0]src2 5+| [4:0]dest 11+| [10:0]N/A
 | *I* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]dest 16+| [15:0]imm
 | *B* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]cond 16+| [15:0]imm
-| *P* 6+| [5:0]opcode 5+| [4:0]src 5+| [4:0]pin 16+| [15:0]imm
 | *C* 6+| [5:0]opcode 5+| [4:0]cond 5+| [4:0]pin 16+| [15:0]N/A
 |===
 
@@ -52,25 +51,21 @@
 | MST | 011101 | I | ram[imm] = src | false
 | PLD | 011110 | I | dest = io[imm] | false
 | PST | 011111 | I | io[imm] = src | false
-| PINL | 100000 | P | opin[pin] = high | false
-| PINH | 100001 | P | opin[pin] = high | false
-| PML | 100010 | S | dest = ram[src2] | false
-| PMS | 100011 | S | ram[src2] src1 | false
-| PPL | 100100 | S | dest = io[src2] | false
-| PPS | 100101 | S | io[src2] = src1 | false
-| PSH | 100110 | S | ram[sp] = src1; sp++ | false
-| POP | 100111 | S | src = ram[sp], sp-- | false
-| BRC | 101000 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
-| JMP | 101001 | B | pc = imm | false
-| PBR | 101010 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
-| PJM | 101011 | B | pc = src | false
-| PIB | 101100 | P | if (ipin[pin] == high): {pc = imm} else: {pc++} | false
-| PPIB | 101101 | P | if (ipin[pin] == high): {pc = src} else: {pc++} | false
-| CPIH | 101110 | C | if (flagreg[cond]): {opin[pin] = high} | false
-| CPIL | 101111 | C | if (flagreg[cond]): {opin[pin] = low} | false
-| LPC | 110000 | S | src = pc | false
-| SSP | 110001 | S | sp = dest | false
-| LSP | 110010 | S | src = sp | false
+| PML | 100000 | S | dest = ram[src2] | false
+| PMS | 100001 | S | ram[src2] src1 | false
+| PPL | 100010 | S | dest = io[src2] | false
+| PPS | 100011 | S | io[src2] = src1 | false
+| PSH | 100100 | S | ram[sp] = src1; sp++ | false
+| POP | 100101 | S | src = ram[sp], sp-- | false
+| BRC | 100110 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
+| JMP | 100111 | B | pc = imm | false
+| PBR | 101000 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
+| PJM | 101001 | B | pc = src | false
+| CPIH | 101010 | C | if (flagreg[cond]): {opin[pin] = high} | false
+| CPIL | 101011 | C | if (flagreg[cond]): {opin[pin] = low} | false
+| LPC | 101100 | S | src = pc | false
+| SSP | 101101 | S | sp = dest | false
+| LSP | 101110 | S | src = sp | false
 | HLT | 111111 | S | stop clock | false
 |===
 
