@@ -18,7 +18,7 @@
 [cols=5*]
 |===
 | *Instruction* | *Opcode* | *Type* | *Description* | *Update Flags?*
-| NOP | 000000 | S | does nothing | false
+| NOP | 000000 | N/A | does nothing | false
 | ADD | 000001 | S | dest = src1 + src2 | true
 | SUB | 000010 | S | dest = src1 - src2 | true
 | OR | 000011 | S | dest = src1 \| src2 | true
@@ -63,7 +63,7 @@
 | LPC | 101100 | S | src = pc | false
 | SSP | 101101 | S | sp = dest | false
 | LSP | 101110 | S | src = sp | false
-| HLT | 111111 | S | stop clock | false
+| HLT | 111111 | N/A | stop clock | false
 |===
 
 {empty} +
