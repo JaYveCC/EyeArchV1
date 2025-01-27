@@ -69,6 +69,8 @@
 | CPIH | 101110 | C | if (flagreg[cond]): {opin[pin] = high} | false
 | CPIL | 101111 | C | if (flagreg[cond]): {opin[pin] = low} | false
 | LPC | 110000 | S | src = pc | false
+| SSP | 110001 | S | sp = dest | false
+| LSP | 110010 | S | src = sp | false
 | HLT | 111111 | S | stop clock | false
 |===
 
@@ -83,8 +85,7 @@
 |===
 | *Name* | *Function* | *Address*
 | r0 | hardwired zero | 00000
-| r1 - r30 | gpr | 00001 - 11110
-| sp | stack pointer | 11111
+| r1 - r31 | gpr | 00001
 |===
 
 {empty} +
