@@ -1,5 +1,5 @@
 module alu_tb ();
-reg c_in;
+reg c_in, alu_enable;
 reg [15:0] a_in, b_in;
 reg [3:0] alu_sel;
 /* verilator lint_off UNUSEDSIGNAL */
@@ -9,6 +9,7 @@ wire [15:0] out;
 
 alu dut (
 .c_in (c_in),
+.alu_enable (alu_enable),
 .a_in (a_in),
 .b_in (b_in),
 .alu_sel (alu_sel),
@@ -21,7 +22,8 @@ initial begin
    $dumpvars(0, alu_tb);
 
    alu_sel = 4'b1111;
-
+   alu_enable = 1'b1;
+   
    for (int i = 0; i < 16; i++) begin
 		alu_sel = alu_sel + 4'b0001;
       /* verilator lint_off WIDTHTRUNC */
