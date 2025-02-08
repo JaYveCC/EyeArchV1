@@ -8,7 +8,7 @@ module cu (
     always @(opcode) begin
     case (opcode)
         6'b001110 : begin     //LDIM
-            inst_type <= 2'b01;
+            inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
