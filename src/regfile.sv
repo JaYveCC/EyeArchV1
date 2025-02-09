@@ -7,6 +7,16 @@ module regfile (
 
     logic [15:0] mem [1:31];
     always @(posedge clk) begin
+        if (read_a) begin
+            a_out <= mem[a_addr];
+        end
+
+        if (read_b) begin
+            b_out <= mem[b_addr];
+        end        
+    end
+
+    always @(negedge clk) begin
         if (reset) begin
             for (int i = 0; i < 32; i++) begin
                 mem[i] <= 16'b0;
@@ -16,13 +26,5 @@ module regfile (
         if (write) begin
             mem[w_addr] <= d_in;
         end
-
-        if (read_a) begin
-            a_out <= mem[a_addr];
-        end
-
-        if (read_b) begin
-            b_out <= mem[b_addr];
-        end        
     end
 endmodule
