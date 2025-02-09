@@ -18,11 +18,10 @@ module alu (
       4'b0110 : out = a_in ~& b_in;
       4'b0111 : out = a_in ~^ b_in;
       4'b1000 : out = a_in >> b_in;
-      4'b1001 : out = a_in >> b_in;
+      4'b1001 : out = a_in << b_in;
       4'b1010 : out = a_in <<< b_in;
       4'b1011 : out = a_in >>> b_in;
-      4'b1100 : out = a_in <<< b_in;
-      4'b1101 : out = ~a_in;
+      4'b1100 : out = ~a_in;
       default: out = a_in | b_in;
     endcase
     end
