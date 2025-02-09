@@ -12,15 +12,23 @@ module cpu_tb;
     );
 
     initial begin
-        clk = 1'b0;
-        forever #50 clk = ~clk;
-    end
-
-    initial begin
         $dumpfile("cpu_tb.vcd");
         $dumpvars(0, cpu_tb);
-        instruction = 32'b10101010101010100000100000001110;
-        #200
+        clk = 1'b1;
+        instruction = 32'b00000000000000110000100000001110;
+        #50
+        clk = 1'b0;
+        #50
+        clk = 1'b1;
+        instruction = 32'b00000000000001110001000000001110;
+        #50
+        clk = 1'b0;
+        #50
+        clk = 1'b1;
+        instruction = 32'b00000000000000110001000001000001;
+        #50
+        clk = 1'b0;
+        #50
         $finish;
     end
 endmodule

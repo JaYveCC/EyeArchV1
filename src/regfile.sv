@@ -6,7 +6,7 @@ module regfile (
 );
 
     logic [15:0] mem [1:31];
-    always @(posedge clk) begin
+    always @(read_a or read_b) begin
         if (read_a) begin
             a_out <= mem[a_addr];
         end
