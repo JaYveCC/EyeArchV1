@@ -10,7 +10,6 @@ module cpu (
     wire alu_c_out;
 
     //cu
-    reg [31:0] ir;
     wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset;
     wire [1:0] inst_type;
     wire [2:0] wb_sel;
