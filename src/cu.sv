@@ -14,7 +14,7 @@ module cu (
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
             wb_sel <= 3'b000;
         end
-        6'b000001 : begin   //SUB
+        6'b000010 : begin   //SUB
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0001;

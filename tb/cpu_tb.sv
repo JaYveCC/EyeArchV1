@@ -29,6 +29,16 @@ module cpu_tb;
         #50
         clk = 1'b0;
         #50
+        clk = 1'b1;
+        instruction = 32'b00000000000001110001000001000010;
+        #50
+        clk = 1'b0;
+        #50
+        clk = 1'b1;
+        instruction = 32'b00000000000010000001000001000101;
+        #50
+        clk = 1'b0;
+        #50
         $finish;
     end
 endmodule
