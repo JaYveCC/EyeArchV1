@@ -1,11 +1,11 @@
 module cpu (
-    input logic clk,
-    input logic [31:0] instruction,
-    /* verilator lint_off UNDRIVEN */
-    output logic [15:0] prom_addr
-    /* verilator lint_off UNDRIVEN */
+    input logic clk, reset
 );
+    wire [31:0] instruction;
+    wire [15:0] prom_addr = 16'b0;
+
     wire [15:0] a_bus, b_bus, wb_bus;
+    /* verilator lint_off UNDRIVEN */
     /* verilator lint_off UNUSEDSIGNAL */
     wire alu_c_out;
 
@@ -16,11 +16,12 @@ module cpu (
     wire [3:0] alu_sel;
 
     //wb_mux
-    wire [15:0] alu_bus, imm_bus, mem_bus, io_bus, pc, sp;
+    wire [15:0] alu_bus, imm_bus, mem_bus, io_bus, pc_bus, sp_bus;
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
     /* verilator lint_off UNUSEDSIGNAL */
+    /* verilator lint_off UNDRIVEN */
 
     alu alu (
         .c_in (alu_c_in),
@@ -46,14 +47,26 @@ module cpu (
         .b_out (b_bus)
     );
 
+    prom prom (
+        .clk (clk),
+        .addr (prom_addr),
+        .instruction (instruction)
+    );
+
+    pc pc (
+        .clk (clk),
+        .reset (reset),
+        .addr (prom_addr)
+    );
+
     wb_mux wb_mux (
         .wb_sel (wb_sel),
         .alu_in (alu_bus),
         .imm (imm_bus),
         .mem_in (mem_bus),
         .io_in (io_bus),
-        .pc (pc),
-        .sp (sp),
+        .pc (pc_bus),
+        .sp (sp_bus),
         .d_out (wb_bus)
     );
 

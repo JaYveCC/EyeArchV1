@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module prom (
     input logic clk,
     input logic [15:0] addr,

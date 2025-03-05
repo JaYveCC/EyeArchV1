@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 module prom_tb;
     reg clk = 1'b1;
     reg [15:0] addr;
