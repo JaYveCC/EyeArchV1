@@ -1,8 +1,8 @@
 module cpu (
-    input logic clk, reset
+    input logic clk
 );
     wire [31:0] instruction;
-    wire [15:0] prom_addr = 16'b0;
+    wire [15:0] prom_addr;
 
     wire [15:0] a_bus, b_bus, wb_bus;
     /* verilator lint_off UNDRIVEN */
@@ -55,7 +55,6 @@ module cpu (
 
     pc pc (
         .clk (clk),
-        .reset (reset),
         .addr (prom_addr)
     );
 

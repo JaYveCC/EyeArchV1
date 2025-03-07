@@ -3,7 +3,6 @@ from sys import argv
 file = open(argv[1], "r")
 content = file.read()
 programm = content.split('\n')
-programm.pop(0)
 
 bin_programm = [[0 for word in range(4)] for line in range(len(programm))]
 
@@ -36,19 +35,19 @@ def parse_imm(operand):
         raise ValueError("immediate value does not fit in 16 bits")
 
 def double_soruce_dest(opcode):
-    bin_programm[line][0] = opcode
-    bin_programm[line][1] = parse_reg(words[1])
-    bin_programm[line][2] = parse_reg(words[2])
-    bin_programm[line][3] = parse_reg(words[3]) + '00000000000'
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = parse_reg(words[2])
+    bin_programm[line][0] = '00000000000' + parse_reg(words[3])
 
 for line in range(len(programm)):
     words = programm[line].split(' ')
     match words[0]:
         case 'NOP':
-            bin_programm[line][0] = '000000'
-            bin_programm[line][1] = '00000'
+            bin_programm[line][3] = '000000'
             bin_programm[line][2] = '00000'
-            bin_programm[line][3] = '0000000000000000'
+            bin_programm[line][1] = '00000'
+            bin_programm[line][0] = '0000000000000000'
         case 'ADD':
             double_soruce_dest('000001')
         case 'SUB':
@@ -66,10 +65,10 @@ for line in range(len(programm)):
         case 'XNOR':
             double_soruce_dest('001000')
         case 'INV':
-            bin_programm[line][0] = '001001'
-            bin_programm[line][1] = parse_reg(words[1])
-            bin_programm[line][2] = '00000'
-            bin_programm[line][3] = parse_reg(words[2]) + '00000000000'
+            bin_programm[line][3] = '001001'
+            bin_programm[line][2] = parse_reg(words[1])
+            bin_programm[line][1] = '00000'
+            bin_programm[line][0] = '00000000000' + parse_reg(words[2])
         case 'BSHL':
             double_soruce_dest('001010')
         case 'BSHR':
@@ -81,10 +80,10 @@ for line in range(len(programm)):
         case 'SBSHR':
             double_soruce_dest('001101')
         case 'LDIM':
-            bin_programm[line][0] = '001001'
-            bin_programm[line][1] = '00000'
-            bin_programm[line][2] = parse_reg(words[1])
-            bin_programm[line][3] = parse_imm(words[2])
+            bin_programm[line][3] = '001110'
+            bin_programm[line][2] = '00000'
+            bin_programm[line][1] = parse_reg(words[1])
+            bin_programm[line][0] = parse_imm(words[2])
 
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]

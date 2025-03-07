@@ -1,4 +1,3 @@
-#!./assembler.py
 LDIM r1 d4
 LDIM r2 d5
 ADD r1 r2 r3

@@ -1,13 +1,8 @@
 module pc (
-    input logic clk, reset,
+    input logic clk,
     output logic [15:0] addr
 );
-    reg [15:0] next_addr;
-    always @(posedge clk) begin
-        addr <= next_addr;
+    always @(negedge clk) begin
         addr <= addr + 16'b1;
-        if (reset) begin
-            next_addr <= 0;
-        end
     end
 endmodule

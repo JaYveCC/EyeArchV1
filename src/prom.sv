@@ -12,9 +12,6 @@ module prom (
 
     always @(posedge clk) begin
         instruction <= next_instruction;
-    end
-
-    always @(addr) begin
         next_instruction <= rom[addr];
     end
 endmodule
