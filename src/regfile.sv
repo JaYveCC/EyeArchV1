@@ -6,13 +6,17 @@ module regfile (
 );
 
     logic [15:0] mem [1:31];
-    always @(read_a or read_b) begin
+    always @(*) begin
         if (read_a) begin
-            a_out <= mem[a_addr];
+            a_out = mem[a_addr];
+        end else begin
+            a_out = 16'b0;
         end
 
         if (read_b) begin
-            b_out <= mem[b_addr];
+            b_out = mem[b_addr];
+        end else begin
+            b_out = 16'b0;
         end        
     end
 
