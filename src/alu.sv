@@ -6,7 +6,9 @@ module alu (
   output logic [15:0] out
 );
 
-  always_latch begin
+  always @(*) begin
+    out = 0;
+    c_out = 1'b0;
     if (alu_enable) begin
       case (alu_sel)
       4'b0000 : {c_out,out} = a_in + b_in + {15'b0,c_in};
@@ -23,7 +25,7 @@ module alu (
       4'b1011 : out = a_in >>> b_in;
       4'b1100 : out = ~a_in;
       default: out = a_in | b_in;
-    endcase
+      endcase
     end
   end
 endmodule
