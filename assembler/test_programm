@@ -3,3 +3,4 @@ LDIM r2 d5
 ADD r1 r2 r3
 SUB r1 r1 r4
 INV r1 r5
+ADDI r1 r6 d9

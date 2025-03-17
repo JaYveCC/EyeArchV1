@@ -12,11 +12,11 @@ module cpu (
     //cu
     wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset;
     wire [1:0] inst_type;
-    wire [2:0] wb_sel;
+    wire [2:0] src_sel;
     wire [3:0] alu_sel;
 
-    //wb_mux
-    wire [15:0] alu_bus, imm_bus, mem_bus, io_bus, pc_bus, sp_bus;
+    //src_mux
+    wire [15:0]  b_out_bus, imm_bus, mem_bus, io_bus, pc_bus, sp_bus;
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
@@ -30,7 +30,7 @@ module cpu (
         .b_in (b_bus),
         .alu_sel (alu_sel),
         .c_out (alu_c_out),
-        .out (alu_bus)
+        .out (wb_bus)
     );
 
     regfile regfile (
@@ -44,7 +44,7 @@ module cpu (
         .b_addr (src2),
         .d_in (wb_bus),
         .a_out (a_bus),
-        .b_out (b_bus)
+        .b_out (b_out_bus)
     );
 
     prom prom (
@@ -58,15 +58,15 @@ module cpu (
         .addr (prom_addr)
     );
 
-    wb_mux wb_mux (
-        .wb_sel (wb_sel),
-        .alu_in (alu_bus),
+    src_mux src_mux (
+        .src_sel (src_sel),
+        .b_in (b_out_bus),
         .imm (imm_bus),
         .mem_in (mem_bus),
         .io_in (io_bus),
         .pc (pc_bus),
         .sp (sp_bus),
-        .d_out (wb_bus)
+        .d_out (b_bus)
     );
 
     inst_mux inst_mux (

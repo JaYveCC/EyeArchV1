@@ -40,6 +40,12 @@ def double_soruce_dest(opcode):
     bin_programm[line][1] = parse_reg(words[2])
     bin_programm[line][0] = '00000000000' + parse_reg(words[3])
 
+def source_imm_dest(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = parse_reg(words[2])
+    bin_programm[line][0] = parse_imm(words[3])
+
 for line in range(len(programm)):
     words = programm[line].split(' ')
     match words[0]:
@@ -84,6 +90,8 @@ for line in range(len(programm)):
             bin_programm[line][2] = '00000'
             bin_programm[line][1] = parse_reg(words[1])
             bin_programm[line][0] = parse_imm(words[2])
+        case 'ADDI':
+            source_imm_dest('001111')
 
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]
