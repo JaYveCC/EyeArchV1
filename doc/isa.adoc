@@ -45,7 +45,7 @@
 | BSHRI | 011000 | I | dest = src >> imm | true
 | SBSHLI | 011001 | I | dest = src <<< imm | true
 | SBSHRI | 011010 | I | dest = src >>> imm | true
-| IISUB | 011011 | I | dest = imm - src | true
+| ISUBI | 011011 | I | dest = imm - src | true
 | MLD | 011100 | I | dest = ram[imm] | false
 | MST | 011101 | I | ram[imm] = src | false
 | PLD | 011110 | I | dest = io[imm] | false
