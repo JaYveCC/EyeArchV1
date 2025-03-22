@@ -8,7 +8,7 @@ module cpu_tb;
     initial begin
         $dumpfile("cpu_tb.vcd");
         $dumpvars(0, cpu_tb);
-        for (int i = 0; i < 20; i++) begin
+        for (int i = 0; i < 50; i++) begin
             #40 clk = ~clk;
         end
     end

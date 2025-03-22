@@ -73,14 +73,14 @@ module cu (
         6'b001010 : begin   //BSHL
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
-            alu_sel <= 4'b1001;
+            alu_sel <= 4'b1000;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
             src_sel <= 3'b000;
         end
         6'b001011 : begin   //BSHR
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
-            alu_sel <= 4'b1000;
+            alu_sel <= 4'b1001;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
             src_sel <= 3'b000;
         end
@@ -109,6 +109,90 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0000;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010000 : begin   //SUBI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0001;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010001 : begin   //ORI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0010;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010010 : begin   //ANDI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0011;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010011 : begin   //XORI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0100;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010100 : begin   //NORI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0101;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010101 : begin   //NANDI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0110;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010110 : begin   //XNORI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b0111;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b010111 : begin   //BSHLI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b1000;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b011000 : begin   //BSHRI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b1001;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b011001 : begin   //SBSHLI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b1010;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b011010 : begin   //SBSHRI
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b1011;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 3'b001;
+        end
+        6'b011011 : begin   //IISUB
+            inst_type <= 2'b10;
+            alu_c_in <= 0; alu_enable <= 1;
+            alu_sel <= 4'b1100;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
             src_sel <= 3'b001;
         end

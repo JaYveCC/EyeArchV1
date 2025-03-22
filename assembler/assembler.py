@@ -92,6 +92,30 @@ for line in range(len(programm)):
             bin_programm[line][0] = parse_imm(words[2])
         case 'ADDI':
             source_imm_dest('001111')
+        case 'SUBI':
+            source_imm_dest('010000')
+        case 'ORI':
+            source_imm_dest('010001')
+        case 'ANDI':
+            source_imm_dest('010010')
+        case 'XORI':
+            source_imm_dest('010011')
+        case 'NORI':
+            source_imm_dest('010100')
+        case 'NANDI':
+            source_imm_dest('010101')
+        case 'XNORI':
+            source_imm_dest('010110')
+        case 'BSHLI':
+            source_imm_dest('010111')
+        case 'BSHRI':
+            source_imm_dest('011000')
+        case 'SBSHLI':
+            source_imm_dest('011001')
+        case 'SBSHRI':
+            source_imm_dest('011010')
+        case 'ISUBI':
+            source_imm_dest('011011')
 
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]
