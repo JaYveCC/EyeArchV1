@@ -48,21 +48,17 @@
 | ISUBI | 011011 | I | dest = imm - src | true
 | MLD | 011100 | I | dest = ram[imm] | false
 | MST | 011101 | I | ram[imm] = src | false
-| PLD | 011110 | I | dest = io[imm] | false
-| PST | 011111 | I | io[imm] = src | false
-| PML | 100000 | S | dest = ram[src2] | false
-| PMS | 100001 | S | ram[src2] src1 | false
-| PPL | 100010 | S | dest = io[src2] | false
-| PPS | 100011 | S | io[src2] = src1 | false
-| PSH | 100100 | S | ram[sp] = src1; sp++ | false
-| POP | 100101 | S | src = ram[sp], sp-- | false
-| BRC | 100110 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
-| JMP | 100111 | B | pc = imm | false
-| PBR | 101000 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
-| PJM | 101001 | B | pc = src | false
-| LPC | 101100 | S | src = pc | false
-| SSP | 101101 | S | sp = dest | false
-| LSP | 101110 | S | src = sp | false
+| PML | 011110 | S | dest = ram[src2] | false
+| PMS | 011111 | S | ram[src2] src1 | false
+| PSH | 100000 | S | ram[sp] = src1; sp++ | false
+| POP | 100001 | S | src = ram[sp], sp-- | false
+| BRC | 100010 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
+| JMP | 100011 | B | pc = imm | false
+| PBR | 100100 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
+| PJM | 100101 | B | pc = src | false
+| LPC | 100110 | S | src = pc | false
+| SSP | 100111 | S | sp = dest | false
+| LSP | 101000 | S | src = sp | false
 | HLT | 111111 | N/A | stop clock | false
 |===
 
