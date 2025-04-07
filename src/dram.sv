@@ -9,7 +9,7 @@ module dram (
         $readmemh("mem/ram.mem", ram);
     end
 
-    always @(posedge clk) begin
+    always @(negedge clk) begin
         if (write) begin
             ram[addr] <= d_in;
         end
