@@ -5,7 +5,7 @@ reg [3:0] alu_sel;
 /* verilator lint_off UNUSEDSIGNAL */
 wire c_out;
 wire [15:0] out;
-/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_on UNUSEDSIGNAL */
 
 alu dut (
 .c_in (c_in),

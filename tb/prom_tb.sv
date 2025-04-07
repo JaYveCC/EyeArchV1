@@ -3,7 +3,7 @@ module prom_tb;
     reg [15:0] addr;
     /* verilator lint_off UNUSEDSIGNAL */
     wire [31:0] instruction;
-    /* verilator lint_off UNUSEDSIGNAL */
+    /* verilator lint_on UNUSEDSIGNAL */
     
     prom dut (
         .clk (clk),

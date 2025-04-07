@@ -24,8 +24,8 @@ module cpu (
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
-    /* verilator lint_off UNUSEDSIGNAL */
-    /* verilator lint_off UNDRIVEN */
+    /* verilator lint_on UNUSEDSIGNAL */
+    /* verilator lint_on UNDRIVEN */
 
     alu alu (
         .c_in (alu_c_in),

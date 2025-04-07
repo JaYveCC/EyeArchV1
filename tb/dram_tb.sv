@@ -3,7 +3,7 @@ module dram_tb;
     reg read, write;
     /* verilator lint_off UNUSEDSIGNAL */
     reg [15:0] addr, d_in, d_out;
-    /* verilator lint_off UNUSEDSIGNAL */
+    /* verilator lint_on UNUSEDSIGNAL */
     
     dram dut (
         .clk (clk),

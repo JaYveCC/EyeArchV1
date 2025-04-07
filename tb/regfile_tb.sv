@@ -4,7 +4,7 @@ module regfile_tb;
     reg [15:0] d_in;
     /* verilator lint_off UNUSEDSIGNAL */
     wire [15:0] a_out, b_out;
-    /* verilator lint_off UNUSEDSIGNAL */
+    /* verilator lint_on UNUSEDSIGNAL */
     
     regfile dut (
         .clk (clk),
