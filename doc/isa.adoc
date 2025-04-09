@@ -56,7 +56,7 @@
 | JMP | 100011 | B | pc = imm | false
 | PBR | 100100 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
 | PJM | 100101 | B | pc = src | false
-| LPC | 100110 | S | src = pc | false
+| SJM | 100110 | B | r31 = pc; pc = imm | false
 | SSP | 100111 | S | sp = dest | false
 | LSP | 101000 | S | src = sp | false
 | HLT | 111111 | N/A | stop clock | false
@@ -73,7 +73,8 @@
 |===
 | *Name* | *Function* | *Address*
 | r0 | hardwired zero | 00000
-| r1 - r31 | gpr | 00001 - 11111
+| r1 - r30 | gpr | 00001 - 11110
+| r31 | return register | 11111
 |===
 
 {empty} +
