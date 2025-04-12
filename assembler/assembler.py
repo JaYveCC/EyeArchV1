@@ -116,7 +116,26 @@ for line in range(len(programm)):
             source_imm_dest('011010')
         case 'ISUBI':
             source_imm_dest('011011')
-
+        case 'MLD' :
+            bin_programm[line][3] = '011100'
+            bin_programm[line][2] = '00000'
+            bin_programm[line][1] = parse_reg(words[1])
+            bin_programm[line][0] = parse_imm(words[2])
+        case 'MST' :
+            bin_programm[line][3] = '011101'
+            bin_programm[line][2] = parse_reg(words[1])
+            bin_programm[line][1] = '00000'
+            bin_programm[line][0] = parse_imm(words[2])
+        case 'PML' :
+            bin_programm[line][3] = '011110'
+            bin_programm[line][2] = '00000'
+            bin_programm[line][1] = parse_reg(words[1])
+            bin_programm[line][0] = '00000000000' + parse_reg(words[2])
+        case 'PMS' :
+            bin_programm[line][3] = '011111'
+            bin_programm[line][2] = parse_reg(words[1])
+            bin_programm[line][1] = parse_reg(words[2])
+            bin_programm[line][0] = '0000000000000000'
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]
 hex_programm = '\n'.join(hex_programm)

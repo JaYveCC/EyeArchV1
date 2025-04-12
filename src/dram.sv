@@ -1,9 +1,12 @@
+`include "src/parameters.svh"
+`define PORT_COUNT (2**`PORT_EXPONENT)
+
 module dram (
     input logic clk, read, write,
     input logic [15:0] addr, d_in,
     output logic [15:0] d_out
 );
-    reg [15:0] ram [0:65535];
+    reg [15:0] ram [(`PORT_COUNT*2):65535];
 
     initial begin
         $readmemh("mem/ram.mem", ram);

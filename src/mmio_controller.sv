@@ -19,11 +19,7 @@ module mmio_controller (
         $readmemh("mem/io.mem", ram);
     end
 
-    always @(posedge clk) begin
-        if (read) begin
-            d_out <= port_d_in[port_addr];
-        end
-
+    always @(negedge clk) begin
         if (write) begin
             if (port_addr[0]) begin
                 port_inform_write[port_addr[`PORT_EXPONENT:1]] <= 1'b1;
@@ -39,7 +35,8 @@ module mmio_controller (
 
     always_latch @(*) begin
         if (read) begin
-            port_inform_read[port_addr[`PORT_EXPONENT:1]] = 1'b1;  //sending read inform signal before reading so the IO device has time to react
+            d_out = port_d_in[port_addr];
+            port_inform_read[port_addr[`PORT_EXPONENT:1]] = 1'b1;
         end
     end
 endmodule

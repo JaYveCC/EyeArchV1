@@ -1,5 +1,12 @@
+`include "src/parameters.svh"
+`define PORT_COUNT (2**`PORT_EXPONENT)
+
 module cpu (
-    input logic clk
+    input logic clk,
+    input wire [15:0] port_d_in [0:(`PORT_COUNT*2)-1],
+    output wire port_inform_write [`PORT_COUNT-1:0],
+    output wire port_inform_read [`PORT_COUNT-1:0],
+    output wire [15:0] port_d_out [0:(`PORT_COUNT*2)-1]
 );
     wire [31:0] instruction;
     wire [15:0] prom_addr;
@@ -10,11 +17,10 @@ module cpu (
     wire alu_c_out;
 
     //cu
-    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset;
-    wire [1:0] inst_type, wb_sel;
+    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, wb_sel;
+    wire [1:0] inst_type;
     wire [2:0] src_sel;
     wire [3:0] alu_sel;
-
 
     //wb_mux
     wire [15:0] alu_bus, mem_bus;
@@ -26,6 +32,9 @@ module cpu (
     wire [4:0] src1, src2, dest, cond;
     /* verilator lint_on UNUSEDSIGNAL */
     /* verilator lint_on UNDRIVEN */
+
+    //memory
+    wire read_mem, write_mem;
 
     alu alu (
         .c_in (alu_c_in),
@@ -55,6 +64,19 @@ module cpu (
         .clk (clk),
         .addr (prom_addr),
         .instruction (instruction)
+    );
+
+    memory memory (
+        .clk(clk),
+        .read(read_mem),
+        .write(write_mem),
+        .addr(b_bus),
+        .d_in(a_bus),
+        .port_d_in(port_d_in),
+        .d_out(mem_bus),
+        .port_inform_write(port_inform_write),
+        .port_inform_read(port_inform_read),
+        .port_d_out(port_d_out)
     );
 
     pc pc (
