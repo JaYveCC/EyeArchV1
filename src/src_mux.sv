@@ -1,6 +1,6 @@
 module src_mux (
   input logic [2:0] src_sel,
-  input logic [15:0] b_in, imm, pc, sp,
+  input logic [15:0] b_in, imm, pc,
   output logic [15:0] d_out
 );
   always @(*) begin
