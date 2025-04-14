@@ -4,6 +4,7 @@
 module cpu (
     input logic clk,
     input wire [15:0] port_d_in [0:(`PORT_COUNT*2)-1],
+    output wire halt,
     output wire port_inform_write [`PORT_COUNT-1:0],
     output wire port_inform_read [`PORT_COUNT-1:0],
     output wire [15:0] port_d_out [0:(`PORT_COUNT*2)-1]
@@ -12,26 +13,34 @@ module cpu (
     wire [15:0] prom_addr;
 
     wire [15:0] a_bus, b_bus, wb_bus;
-    /* verilator lint_off UNDRIVEN */
-    /* verilator lint_off UNUSEDSIGNAL */
+
+    //alu
     wire alu_c_out;
 
     //cu
     wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, wb_sel;
     wire [1:0] inst_type;
-    wire [2:0] src_sel;
+    wire [1:0] src_sel;
     wire [3:0] alu_sel;
 
     //wb_mux
     wire [15:0] alu_bus, mem_bus;
 
     //src_mux
-    wire [15:0]  b_out_bus, imm_bus, pc_bus;
+    wire [15:0]  b_out_bus, imm_bus;
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
-    /* verilator lint_on UNUSEDSIGNAL */
-    /* verilator lint_on UNDRIVEN */
+
+    //pc
+    wire jmp_true;
+
+    //cond_val_reg
+    wire update_flags, cond_c_out;
+    wire [15:0] cond_val_bus;
+
+    //bu
+    wire jmp, brc;
 
     //memory
     wire read_mem, write_mem;
@@ -81,7 +90,27 @@ module cpu (
 
     pc pc (
         .clk (clk),
+        .jmp (jmp_true),
+        .jmp_addr (b_bus),
         .addr (prom_addr)
+    );
+
+    cond_val_reg cond_val_reg (
+        .clk (clk),
+        .update_flags (update_flags),
+        .c_out (alu_c_out),
+        .wb_bus (wb_bus),
+        .cond_c_out (cond_c_out),
+        .cond_val_out (cond_val_bus)
+    );
+
+    bu bu (
+        .jmp (jmp),
+        .brc (brc),
+        .c_out (cond_c_out),
+        .cond (cond),
+        .wb_val (cond_val_bus),
+        .jmp_true (jmp_true)
     );
 
     wb_mux wb_mux (
@@ -95,7 +124,7 @@ module cpu (
         .src_sel (src_sel),
         .b_in (b_out_bus),
         .imm (imm_bus),
-        .pc (pc_bus),
+        .pc (prom_addr),
         .d_out (b_bus)
     );
 

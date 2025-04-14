@@ -10,8 +10,11 @@ module prom (
         $readmemh("mem/rom.mem", rom);
     end
 
-    always @(posedge clk) begin
+    always @(addr) begin
         instruction <= next_instruction;
+    end
+
+    always @(posedge clk) begin
         next_instruction <= rom[addr];
     end
 endmodule

@@ -22,9 +22,9 @@ module inst_mux (
                 imm = inst_operands[31:16];
             end
             2'b11 : begin   //B-type
-                src1 = inst_operands[10:6];
-                src2 = 5'b0;
-                dest = 5'b0;
+                src1 = 5'b0;
+                src2 = inst_operands[10:6];
+                dest = inst_operands[10:6];
                 cond = inst_operands[15:11];
                 imm = inst_operands[31:16];
             end
