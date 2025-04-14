@@ -26,7 +26,7 @@ module cpu (
     wire [15:0] alu_bus, mem_bus;
 
     //src_mux
-    wire [15:0]  b_out_bus, imm_bus, pc_bus, sp_bus;
+    wire [15:0]  b_out_bus, imm_bus, pc_bus;
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
@@ -96,7 +96,6 @@ module cpu (
         .b_in (b_out_bus),
         .imm (imm_bus),
         .pc (pc_bus),
-        .sp (sp_bus),
         .d_out (b_bus)
     );
 

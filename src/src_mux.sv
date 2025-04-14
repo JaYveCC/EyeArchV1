@@ -8,7 +8,6 @@ module src_mux (
     3'b000 : d_out = b_in;
     3'b001 : d_out = imm;
     3'b010 : d_out = pc;
-    3'b011 : d_out = sp;
     default: d_out = b_in;
     endcase
   end
