@@ -50,15 +50,11 @@
 | MST | 011101 | I | ram[imm] = src | false
 | PML | 011110 | S | dest = ram[src2] | false
 | PMS | 011111 | S | ram[src2] src1 | false
-| PSH | 100000 | S | ram[sp] = src1; sp++ | false
-| POP | 100001 | S | src = ram[sp], sp-- | false
-| BRC | 100010 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
-| JMP | 100011 | B | pc = imm | false
-| PBR | 100100 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
-| PJM | 100101 | B | pc = src | false
-| SJM | 100110 | B | r31 = pc; pc = imm | false
-| SSP | 100111 | S | sp = dest | false
-| LSP | 101000 | S | src = sp | false
+| BRC | 100000 | B | if(flagreg[cond]): {pc = imm} else: {pc++} | false
+| JMP | 100001 | B | pc = imm | false
+| PBR | 100010 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
+| PJM | 100011 | B | pc = src | false
+| SJM | 100100 | B | r31 = pc; pc = imm | false
 | HLT | 111111 | N/A | stop clock | false
 |===
 
