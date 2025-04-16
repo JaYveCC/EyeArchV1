@@ -29,8 +29,8 @@ module mmio_controller (
         end
     end
 
-    always @(*) begin
-        ram[port_addr] = d_in;
+    always @(posedge write) begin
+        ram[port_addr] <= d_in;
     end
 
     always_latch @(*) begin
