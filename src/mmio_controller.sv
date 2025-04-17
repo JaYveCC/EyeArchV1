@@ -21,19 +21,22 @@ module mmio_controller (
 
     always @(negedge clk) begin
         if (write) begin
+            ram[port_addr] <= d_in;
             if (port_addr[0]) begin
                 port_inform_write[port_addr[`PORT_EXPONENT:1]] <= 1'b1;
-                port_d_out[port_addr] <= ram[port_addr];
+                port_d_out[port_addr] <= d_in;
                 port_d_out[port_addr-1] <= ram[port_addr-1];
             end
         end
     end
 
-    always @(posedge write) begin
-        ram[port_addr] <= d_in;
-    end
+    // always @(*) begin
+    //     if (write) begin
+    //         ram[port_addr] = d_in;
+    //     end
+    // end
 
-    always_latch @(*) begin
+    always_latch begin
         if (read) begin
             d_out = port_d_in[port_addr];
             port_inform_read[port_addr[`PORT_EXPONENT:1]] = 1'b1;
