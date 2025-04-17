@@ -10,19 +10,22 @@ module cpu_tb;
     /* verilator lint_on UNDRIVEN */
     /* verilator lint_on UNUSEDSIGNAL */
 
+    int count;
+
     cpu dut (
         .*
     );
 
-    assign port_d_in[0] = 16'b1010101;
-    assign port_d_in[1] = 16'b1100110;
+    assign port_d_in[0] = 10;
 
     initial begin
         $dumpfile("cpu_tb.vcd");
         $dumpvars(0, cpu_tb);
 
-        for (int i = 0; i < 50; i++) begin
+        while (halt == 0) begin
             #40 clk = ~clk;
+            count++;
+            if (count >= 100) $finish;
         end
     end
 endmodule

@@ -34,6 +34,24 @@ def parse_imm(operand):
     else:
         raise ValueError("immediate value does not fit in 16 bits")
 
+
+def parse_cond(operand):
+    match operand:
+        case 'zero': return '00000'
+        case 'nzero': return '00001'
+        case 'cout': return '00010'
+        case 'ncout': return '00011'
+        case 'odd': return '00100'
+        case 'even': return '00101'
+        case 'msb': return '00110'
+        case 'nmsb': return '00111'
+
+def no_args(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = '0000000000000000'
+
 def double_soruce_dest(opcode):
     bin_programm[line][3] = opcode
     bin_programm[line][2] = parse_reg(words[1])
@@ -46,14 +64,71 @@ def source_imm_dest(opcode):
     bin_programm[line][1] = parse_reg(words[2])
     bin_programm[line][0] = parse_imm(words[3])
 
+def single_source_dest(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = parse_reg(words[1])
+    bin_programm[line][0] = '00000000000' + parse_reg(words[2])
+
+def imm_dest(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = parse_reg(words[1])
+    bin_programm[line][0] = parse_imm(words[2])
+
+def source_imm(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = parse_imm(words[2])
+
+def double_soruce(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = '0000000000000000'
+
+def single_source(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = parse_reg(words[1])
+    bin_programm[line][0] = '0000000000000000'
+
+def single_imm(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = parse_imm(words[1])
+
+def imm_cond(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = '00000'
+    bin_programm[line][1] = parse_cond(words[1])
+    bin_programm[line][0] = parse_imm(words[2])
+
+def source_cond(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = parse_cond(words[2])
+    bin_programm[line][0] = '0000000000000000'
+
+def imm_operand(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = parse_imm(words[2])
+
+def single_operand(opcode):
+    bin_programm[line][3] = opcode
+    bin_programm[line][2] = parse_reg(words[1])
+    bin_programm[line][1] = '00000'
+    bin_programm[line][0] = '0000000000000000'
+
 for line in range(len(programm)):
     words = programm[line].split(' ')
     match words[0]:
         case 'NOP':
-            bin_programm[line][3] = '000000'
-            bin_programm[line][2] = '00000'
-            bin_programm[line][1] = '00000'
-            bin_programm[line][0] = '0000000000000000'
+            no_args('000000')
         case 'ADD':
             double_soruce_dest('000001')
         case 'SUB':
@@ -71,10 +146,7 @@ for line in range(len(programm)):
         case 'XNOR':
             double_soruce_dest('001000')
         case 'INV':
-            bin_programm[line][3] = '001001'
-            bin_programm[line][2] = parse_reg(words[1])
-            bin_programm[line][1] = '00000'
-            bin_programm[line][0] = '00000000000' + parse_reg(words[2])
+            single_source_dest('001001')
         case 'BSHL':
             double_soruce_dest('001010')
         case 'BSHR':
@@ -86,10 +158,7 @@ for line in range(len(programm)):
         case 'SBSHR':
             double_soruce_dest('001101')
         case 'LDIM':
-            bin_programm[line][3] = '001110'
-            bin_programm[line][2] = '00000'
-            bin_programm[line][1] = parse_reg(words[1])
-            bin_programm[line][0] = parse_imm(words[2])
+            imm_dest('001110')
         case 'ADDI':
             source_imm_dest('001111')
         case 'SUBI':
@@ -116,26 +185,27 @@ for line in range(len(programm)):
             source_imm_dest('011010')
         case 'ISUBI':
             source_imm_dest('011011')
-        case 'MLD' :
-            bin_programm[line][3] = '011100'
-            bin_programm[line][2] = '00000'
-            bin_programm[line][1] = parse_reg(words[1])
-            bin_programm[line][0] = parse_imm(words[2])
-        case 'MST' :
-            bin_programm[line][3] = '011101'
-            bin_programm[line][2] = parse_reg(words[1])
-            bin_programm[line][1] = '00000'
-            bin_programm[line][0] = parse_imm(words[2])
-        case 'PML' :
-            bin_programm[line][3] = '011110'
-            bin_programm[line][2] = '00000'
-            bin_programm[line][1] = parse_reg(words[1])
-            bin_programm[line][0] = '00000000000' + parse_reg(words[2])
-        case 'PMS' :
-            bin_programm[line][3] = '011111'
-            bin_programm[line][2] = parse_reg(words[1])
-            bin_programm[line][1] = parse_reg(words[2])
-            bin_programm[line][0] = '0000000000000000'
+        case 'MLD':
+            imm_dest('011100')
+        case 'MST':
+            source_imm('011101')
+        case 'PML':
+            single_source_dest('011110')
+        case 'PMS':
+            double_soruce('011111')
+        case 'BRC':
+            imm_cond('100000')
+        case 'JMP':
+            single_imm('100001')
+        case 'PBR':
+            source_cond('100010')
+        case 'PJM':
+            single_operand('100011')
+        case 'SJM':
+            imm_operand('100100')
+        case 'HLT':
+            no_args('111111')
+
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]
 hex_programm = '\n'.join(hex_programm)

@@ -32,7 +32,7 @@
 | BSHR | 001011 | S | dest = src1 >> src2 | true
 | SBSHL | 001100 | S | dest = src1 <<< src2 | true
 | SBSHR | 001101 | S | dest = src1 >>> src2 | true
-| LDIM | 001110 | I | dest = imm | true
+| LDIM | 001110 | I | dest = imm | false
 | ADDI | 001111 | I | dest = src + imm | true
 | SUBI | 010000 | I | dest = src - imm | true
 | ORI | 010001 | I | dest = src \| imm | true

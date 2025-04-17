@@ -18,9 +18,9 @@ module cpu (
     wire alu_c_out;
 
     //cu
-    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, wb_sel;
+    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, src_sel;
     wire [1:0] inst_type;
-    wire [1:0] src_sel;
+    wire [1:0] wb_sel;
     wire [3:0] alu_sel;
 
     //wb_mux
@@ -117,6 +117,7 @@ module cpu (
         .wb_sel (wb_sel),
         .alu_in (alu_bus),
         .mem_in (mem_bus),
+        .pc (prom_addr),
         .d_out (wb_bus)
     );
 
@@ -124,7 +125,6 @@ module cpu (
         .src_sel (src_sel),
         .b_in (b_out_bus),
         .imm (imm_bus),
-        .pc (prom_addr),
         .d_out (b_bus)
     );
 

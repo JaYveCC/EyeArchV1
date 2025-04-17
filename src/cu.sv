@@ -1,8 +1,8 @@
 module cu (
     input logic [5:0] opcode,
-    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, read_mem, write_mem, wb_sel, jmp, brc, update_flags, halt,
+    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, read_mem, write_mem, src_sel, jmp, brc, update_flags, halt,
     output logic [1:0] inst_type,
-    output logic [1:0] src_sel,
+    output logic [1:0] wb_sel,
     output logic [3:0] alu_sel
 );
     always @(opcode) begin
@@ -12,8 +12,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0000;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -26,8 +26,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0001;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -40,8 +40,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -54,8 +54,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0011;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -68,8 +68,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0100;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -82,8 +82,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0101;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -96,8 +96,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0110;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -110,8 +110,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0111;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -123,9 +123,9 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1100;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -138,8 +138,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1000;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -152,8 +152,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1001;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -166,8 +166,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1010;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -180,8 +180,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1011;
             reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -194,13 +194,13 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
             brc <= 1'b0;
-            update_flags <= 1'b1;
+            update_flags <= 1'b0;
             halt <= 1'b0;
         end
         6'b001111 : begin   //ADDI
@@ -208,8 +208,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0000;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -222,8 +222,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0001;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -236,8 +236,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -250,8 +250,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0011;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -264,8 +264,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0100;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -278,8 +278,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0101;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -292,8 +292,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0110;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -306,8 +306,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0111;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -320,8 +320,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1000;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -334,8 +334,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1001;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -348,8 +348,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1010;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -362,8 +362,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1011;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -376,8 +376,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1100;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -390,8 +390,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b1;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b01;
             read_mem <= 1'b1;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -404,8 +404,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 1; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b1;
             jmp <= 1'b0;
@@ -418,8 +418,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b1;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b01;
             read_mem <= 1'b1;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -432,8 +432,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b1;
             jmp <= 1'b0;
@@ -446,8 +446,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b1;
@@ -460,8 +460,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b1;
@@ -474,8 +474,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b1;
@@ -488,8 +488,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b1;
@@ -499,11 +499,11 @@ module cu (
         end
         6'b100100 : begin     //SJM
             inst_type <= 2'b11;
-            alu_c_in <= 0; alu_enable <= 1;
+            alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 2'b01;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b1;
+            wb_sel <= 2'b10;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b1;
@@ -516,8 +516,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
@@ -530,8 +530,8 @@ module cu (
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
             reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 2'b00;
-            wb_sel <= 1'b0;
+            src_sel <= 1'b0;
+            wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
             jmp <= 1'b0;
