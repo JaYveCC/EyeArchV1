@@ -15,9 +15,9 @@ module alu (
       4'b0010 : out = a_in | b_in;
       4'b0011 : out = a_in & b_in;
       4'b0100 : out = a_in ^ b_in;
-      4'b0101 : out = a_in ~| b_in;
-      4'b0110 : out = a_in ~& b_in;
-      4'b0111 : out = a_in ~^ b_in;
+      4'b0101 : out = ~(a_in | b_in);
+      4'b0110 : out = ~(a_in & b_in);
+      4'b0111 : out = ~(a_in ^ b_in);
       4'b1000 : out = a_in << b_in;
       4'b1001 : out = a_in >> b_in;
       4'b1010 : out = a_in <<< b_in;
