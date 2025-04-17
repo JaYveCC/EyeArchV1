@@ -30,12 +30,6 @@ module mmio_controller (
         end
     end
 
-    // always @(*) begin
-    //     if (write) begin
-    //         ram[port_addr] = d_in;
-    //     end
-    // end
-
     always_latch begin
         if (read) begin
             d_out = port_d_in[port_addr];
