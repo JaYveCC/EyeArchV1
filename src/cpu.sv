@@ -1,4 +1,4 @@
-`include "src/parameters.svh"
+`include "../src/parameters.svh"
 `define PORT_COUNT (2**`PORT_EXPONENT)
 
 module cpu (

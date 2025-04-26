@@ -1,3 +1,6 @@
+`include "../src/parameters.svh"
+`define PORT_COUNT (2**`PORT_EXPONENT)
+
 module memory (
     input wire clk, read, write,
     input wire [15:0] addr, d_in,
