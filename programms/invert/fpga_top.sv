@@ -22,7 +22,7 @@ module fpga_top (
         .*
     );
 
-    always @ (posedge clk) begin
+    always @(posedge clk) begin
         divided_clk = ~divided_clk;
     end
 endmodule

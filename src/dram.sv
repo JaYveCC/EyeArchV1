@@ -18,7 +18,7 @@ module dram (
         end
     end
 
-    always @(*) begin
+    always_comb begin
         d_out = 16'b0;
         if (read) begin
             d_out = ram[addr];

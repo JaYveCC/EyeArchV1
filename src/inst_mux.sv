@@ -5,7 +5,7 @@ module inst_mux (
     output logic [15:0] imm
 );
 
-    always @(*) begin
+    always_comb begin
         case (inst_type)
             2'b01 : begin   //S-type
                 src1 = inst_operands[10:6];

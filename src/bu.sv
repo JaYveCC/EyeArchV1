@@ -4,7 +4,7 @@ module bu (
     input logic [15:0] wb_val,
     output logic jmp_true
 );
-    always @(*) begin
+    always_comb begin
         jmp_true = 1'b0;
         if (jmp) begin
             if (brc) begin

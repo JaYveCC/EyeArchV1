@@ -6,7 +6,7 @@ module regfile (
 );
 
     logic [15:0] mem [1:31];
-    always @(*) begin
+    always_comb begin
         if (read_a) begin
             a_out = mem[a_addr];
         end else begin

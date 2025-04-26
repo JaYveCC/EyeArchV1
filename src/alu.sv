@@ -5,7 +5,7 @@ module alu (
   output logic c_out,
   output logic [15:0] out
 );
-  always @(*) begin
+  always_comb begin
     out = 0;
     c_out = 1'b0;
     if (alu_enable) begin
