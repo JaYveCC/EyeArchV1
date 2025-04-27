@@ -8,4 +8,4 @@ MST r1 d1
 ADDI r4 r4 d1
 SUB r3 r4 r0
 BRC nzero d3
-HLT 
+HLT
