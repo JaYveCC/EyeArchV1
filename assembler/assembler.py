@@ -4,7 +4,7 @@ file = open(argv[1], "r")
 content = file.read()
 programm = content.split('\n')
 
-bin_programm = [[0 for word in range(4)] for line in range(len(programm))]
+bin_programm = []
 
 def parse_reg(operand):
     if operand[0] == 'r':
@@ -45,6 +45,14 @@ def parse_cond(operand):
         case 'msb':     return '00110'
         case 'nmsb':    return '00111'
 
+def parse_label(operand):
+    for label in labels:
+        if operand == label[0]:
+            operand = '{0:016b}'.format(label[1])
+            operand = str(operand)
+            return operand
+    raise ValueError("label does not exist")
+
 instructions = [['NOP'      , '000000', 'n', 'n', 'n'],
                 ['ADD'      , '000001', 'r', 'r', 'r'],
                 ['SUB'      , '000010', 'r', 'r', 'r'],
@@ -77,37 +85,50 @@ instructions = [['NOP'      , '000000', 'n', 'n', 'n'],
                 ['MST'      , '011101', 'r', 'n', 'i'],
                 ['PML'      , '011110', 'n', 'r', 'r'],
                 ['PMS'      , '011111', 'r', 'r', 'n'],
-                ['BRC'      , '100000', 'n', 'b', 'i'],
-                ['JMP'      , '100001', 'n', 'n', 'i'],
+                ['BRC'      , '100000', 'n', 'b', 'l'],
+                ['JMP'      , '100001', 'n', 'n', 'l'],
                 ['PBR'      , '100010', 'r', 'b', 'n'],
                 ['PJM'      , '100011', 'r', 'n', 'n'],
-                ['SJM'      , '100011', 'r', 'n', 'i'],
+                ['SJM'      , '100011', 'r', 'n', 'l'],
                 ['HLT'      , '111111', 'n', 'n', 'n']]
 
+bin_line = 0
+labels = []
 for line in range(len(programm)):
     words = programm[line].split(' ')
     for instruction in instructions:
         if words[0] == instruction[0]:
-            bin_programm[line][0] = instruction[1]
+            bin_programm.append([0 for word in range(4)])
+            bin_programm[bin_line][0] = instruction[1]
             operand_count = 1
             for operand in range(4):
                 match instruction[operand + 1]:
                     case 'n':
-                        bin_programm[line][operand] = '00000'
+                        bin_programm[bin_line][operand] = '00000'
                     case 'r':
-                        bin_programm[line][operand] = parse_reg(words[operand_count])
+                        bin_programm[bin_line][operand] = parse_reg(words[operand_count])
                         operand_count += 1
                     case 'i':
-                        bin_programm[line][operand] = parse_imm(words[operand_count])
+                        bin_programm[bin_line][operand] = parse_imm(words[operand_count])
                         operand_count += 1
                     case 'b':
-                        bin_programm[line][operand] = parse_cond(words[operand_count])
+                        bin_programm[bin_line][operand] = parse_cond(words[operand_count])
+                        operand_count += 1
+                    case 'l':
+                        bin_programm[bin_line][operand] = parse_label(words[operand_count])
                         operand_count += 1
                         
-            if len(bin_programm[line][3]) != 16:
-                bin_programm[line][3] = '00000000000' + bin_programm[line][3]
+            if len(bin_programm[bin_line][3]) != 16:
+                bin_programm[bin_line][3] = '00000000000' + bin_programm[bin_line][3]
 
-            bin_programm[line].reverse()
+            bin_programm[bin_line].reverse()
+            bin_line += 1
+
+        if programm[line][0] == ':':
+            curent_label = programm[line].split(' ')[0]
+            curent_label = curent_label[1:]
+            labels.append([curent_label, bin_line])
+
 bin_programm = [''.join(line) for line in bin_programm]
 hex_programm = ["{:08x}".format(int(line, 2)) for line in bin_programm]
 hex_programm = '\n'.join(hex_programm)
