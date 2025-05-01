@@ -6,7 +6,7 @@ module dram (
     input logic [15:0] addr, d_in,
     output logic [15:0] d_out
 );
-    reg [15:0] ram [(`PORT_COUNT*2):32767];
+    reg [15:0] ram [(`PORT_COUNT*2):2000];
 
     initial begin
         $readmemh("../mem/ram.mem", ram);

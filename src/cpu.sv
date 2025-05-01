@@ -4,9 +4,8 @@
 module cpu (
     input logic clk,
     input wire [15:0] port_d_in [0:(`PORT_COUNT*2)-1],
-    output wire halt,
-    output wire port_inform_write [`PORT_COUNT-1:0],
-    output wire port_inform_read [`PORT_COUNT-1:0],
+    output wire halt, cpu_read, cpu_write,
+    output wire [15:0] cpu_addr,
     output wire [15:0] port_d_out [0:(`PORT_COUNT*2)-1]
 );
     wire [31:0] instruction;
@@ -44,6 +43,10 @@ module cpu (
 
     //memory
     wire read_mem, write_mem;
+
+    assign cpu_read = read_mem;
+    assign cpu_write = write_mem;
+    assign cpu_addr = b_bus;
 
     alu alu (
         .c_in (alu_c_in),
@@ -83,8 +86,6 @@ module cpu (
         .d_in(a_bus),
         .port_d_in(port_d_in),
         .d_out(mem_bus),
-        .port_inform_write(port_inform_write),
-        .port_inform_read(port_inform_read),
         .port_d_out(port_d_out)
     );
 

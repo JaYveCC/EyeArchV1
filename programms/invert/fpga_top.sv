@@ -9,8 +9,8 @@ module fpga_top (
 
     wire [15:0] port_d_in [0:(`PORT_COUNT*2)-1];
     wire halt;
-    wire port_inform_write [`PORT_COUNT-1:0];
-    wire port_inform_read [`PORT_COUNT-1:0];
+    wire cpu_read, cpu_write;
+    wire [15:0] cpu_addr;
     wire [15:0] port_d_out [0:(`PORT_COUNT*2)-1];
     reg divided_clk = 1'b0;
 
