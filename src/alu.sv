@@ -1,6 +1,6 @@
 module alu (
   input logic c_in, alu_enable,
-  input logic [15:0] a_in, b_in,
+  input logic signed [15:0] a_in, b_in,
   input logic [3:0] alu_sel,
   output logic c_out,
   output logic [15:0] out
