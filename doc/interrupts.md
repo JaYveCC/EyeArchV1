@@ -43,7 +43,7 @@ There are 3 interrupt related instructions:
 
 ## Operation
 
-To send an interrupt, the I/O device has first input the right interrupt ID and then pull the confirm bit to high. The ID will be put into the interrupt queue.
+To send an interrupt, the I/O device first has to input a interrupt ID and then pull the confirm bit to high. The ID will be put into the interrupt queue.
 When the interrupt handler is ready it will start executing the next interrupt in the queue.
 Executing an interrupt will automatically block interrupts. It will push the current PC and flags on into the callstack.
 After that it branches to the address in the interrupt destination address.
