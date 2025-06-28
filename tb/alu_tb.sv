@@ -30,7 +30,7 @@ initial begin
       a_in = $random;
       b_in = $random;
       c_in = $random;
-      /* verilator lint_off WIDTHTRUNC */
+      /* verilator lint_on WIDTHTRUNC */
       #20
       $display(i);
    end

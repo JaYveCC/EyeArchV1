@@ -1,0 +1,34 @@
+module callstack (
+    input logic push, pop, reset,
+    input logic [15:0] d_in,
+    output wire full, empty,
+    output logic [15:0] d_out
+);
+
+    reg [15:0] stack [0:15];
+    reg [3:0] pointer;
+
+    assign full = (pointer == 15) ? 1'b1 : 1'b0;
+    assign empty = (pointer == 0) ? 1'b1 : 1'b0;
+
+    always @(posedge push or posedge pop or posedge reset) begin
+        if (reset) begin
+            pointer <= 4'b0;
+
+            for (int i = 0; i < 16; i++) begin
+                stack[i] <= 16'b0;
+            end
+        end
+
+        if (push) begin
+            stack[pointer] <= d_in;
+            pointer <= pointer + 1;
+        end
+
+        if (pop) begin
+            pointer <= pointer - 1;
+        end
+    end
+
+    assign d_out = stack[pointer];
+endmodule
