@@ -54,7 +54,10 @@
 | JMP | 100001 | B | pc = imm | false
 | PBR | 100010 | B | if(flagreg[cond]): {pc = src} else: {pc++} | false
 | PJM | 100011 | B | pc = src | false
-| SJM | 100100 | B | dest = pc; pc = imm | false
+| CAL | 100100 | B | cs.push(pc); pc = imm | false
+| RET | 100101 | B | pc = cs.pop | false
+| BIN | 100110 | B | interrupt_pin_enable = false | false
+| EIN | 100111 | B | interrupt_pin_enable = true | false
 | HLT | 111111 | N/A | stop clock | false
 |===
 
