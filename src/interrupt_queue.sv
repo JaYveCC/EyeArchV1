@@ -17,7 +17,6 @@ module interrupt_queue (
     reg full;
     wire empty;
 
-    assign full = (w_pointer + 5'b1 == r_pointer) ? 1'b1 : 1'b0;
     assign empty = (w_pointer == r_pointer) ? 1'b1 : 1'b0;
 
     always @(posedge clk) begin
