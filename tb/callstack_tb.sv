@@ -1,10 +1,10 @@
 module callstack_tb;
     reg push, pop, reset;
-    reg [15:0] d_in;
+    reg [23:0] d_in;
     /* verilator lint_off UNUSEDSIGNAL */
     wire full;
     wire empty;
-    wire [15:0] d_out;
+    wire [23:0] d_out;
     /* verilator lint_on UNUSEDSIGNAL */
 
     callstack dut (
