@@ -12,20 +12,19 @@ module interrupt_queue (
     reg [4:0] r_pointer;
     reg [4:0] w_pointer;
 
-    reg [4:0] w_pointer_tmp;
+    logic [4:0] w_pointer_tmp;
 
-    reg full;
+    logic full;
     wire empty;
 
     assign empty = (w_pointer == r_pointer) ? 1'b1 : 1'b0;
 
+    assign execute_interrupt = (!empty && !i_block) ? 1'b1 : 1'b0;
+
     always @(posedge clk) begin
     if (!empty && !i_block) begin
             executing_id <= lifo[r_pointer];
-            execute_interrupt <= 1'b1;
             r_pointer <= r_pointer + 5'b1;
-        end else begin
-            execute_interrupt <= 1'b0;
         end
     end
 
