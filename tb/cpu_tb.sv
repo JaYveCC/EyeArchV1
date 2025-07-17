@@ -24,7 +24,7 @@ module cpu_tb;
         while (halt == 0) begin
             #40 clk = ~clk;
             count++;
-            if (count >= 100) $finish;
+            if (count >= 10000) $finish;
         end
     end
 endmodule

@@ -26,20 +26,16 @@ module cpu (
     wire [15:0] alu_bus, mem_bus;
 
     //src_mux
-    wire [15:0]  b_out_bus, imm_bus;
+    wire [15:0] b_out_bus, imm_bus;
     
     //inst_mux
     wire [4:0] src1, src2, dest, cond;
 
     //pc
-    wire jmp_true;
-
-    //cond_val_reg
-    wire update_flags, cond_c_out;
-    wire [15:0] cond_val_bus;
+    wire update_flags, jmp, brc;
 
     //bu
-    wire jmp, brc;
+    wire [7:0] flags;
 
     //memory
     wire read_mem, write_mem;
@@ -91,27 +87,19 @@ module cpu (
 
     pc pc (
         .clk (clk),
-        .jmp (jmp_true),
+        .jmp (jmp),
+        .brc (brc),
+        .update_flags (update_flags),
+        .cond (cond),
+        .flags (flags),
         .jmp_addr (b_bus),
         .addr (prom_addr)
     );
 
-    cond_val_reg cond_val_reg (
-        .clk (clk),
-        .update_flags (update_flags),
-        .c_out (alu_c_out),
-        .wb_bus (wb_bus),
-        .cond_c_out (cond_c_out),
-        .cond_val_out (cond_val_bus)
-    );
-
     bu bu (
-        .jmp (jmp),
-        .brc (brc),
-        .c_out (cond_c_out),
-        .cond (cond),
-        .wb_val (cond_val_bus),
-        .jmp_true (jmp_true)
+        .c_out (alu_c_out),
+        .wb_val (wb_bus),
+        .flags (flags)
     );
 
     wb_mux wb_mux (
