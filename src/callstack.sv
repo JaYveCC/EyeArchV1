@@ -1,5 +1,5 @@
 module callstack (
-    input logic push, pop, reset,
+    input logic push, pop, reset, clk,
     input logic [23:0] d_in,
     output wire full, empty,
     output logic [23:0] d_out
@@ -11,7 +11,7 @@ module callstack (
     assign full = (pointer == 31) ? 1'b1 : 1'b0;
     assign empty = (pointer == 0) ? 1'b1 : 1'b0;
 
-    always @(posedge push or posedge pop or posedge reset) begin
+    always_ff @(negedge clk) begin
         if (reset) begin
             pointer <= 5'b0;
 
@@ -19,7 +19,9 @@ module callstack (
                 stack[i] <= 24'b0;
             end
         end
+    end
 
+    always_ff @(posedge push or posedge pop) begin
         if (push) begin
             stack[pointer] <= d_in;
             pointer <= pointer + 1;

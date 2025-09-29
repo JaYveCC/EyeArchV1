@@ -1,8 +1,7 @@
-module cu (
+module inst_decoder (
     input logic [5:0] opcode,
-    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, reg_reset, read_mem, write_mem, src_sel, jmp, brc, update_flags, halt,
-    output logic [1:0] inst_type,
-    output logic [1:0] wb_sel,
+    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, i_block, update_flags, halt,
+    output logic [1:0] inst_type, src_sel, wb_sel, jmp_mode,
     output logic [3:0] alu_sel
 );
     always @(opcode) begin
@@ -11,13 +10,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0000;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1;
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -25,13 +25,13 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0001;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -39,13 +39,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1;
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -53,13 +54,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0011;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -67,13 +69,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0100;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -81,13 +84,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0101;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -95,13 +99,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0110;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -109,13 +114,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0111;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -123,13 +129,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1100;
-            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -137,13 +144,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1000;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -151,13 +159,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1001;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -165,13 +174,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1010;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -179,13 +189,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1011;
-            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 1; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -193,13 +204,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -207,13 +219,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0000;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -221,13 +234,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0001;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -235,13 +249,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0010;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -249,13 +264,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0011;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -263,13 +279,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0100;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -277,13 +294,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0101;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -291,13 +309,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0110;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -305,13 +324,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b0111;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -319,13 +339,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1000;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -333,13 +354,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1001;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -347,13 +369,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1010;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -361,13 +384,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1011;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -375,13 +399,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 1;
             alu_sel <= 4'b1100;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b1;
             halt <= 1'b0;
         end
@@ -389,13 +414,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b01;
             read_mem <= 1'b1;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -403,13 +429,14 @@ module cu (
             inst_type <= 2'b10;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 1; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b1;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -417,13 +444,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 1; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b01;
             read_mem <= 1'b1;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -431,13 +459,14 @@ module cu (
             inst_type <= 2'b01;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b1;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -445,13 +474,14 @@ module cu (
             inst_type <= 2'b11;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b1;
-            brc <= 1'b1;
+            jmp_mode <= 2'b10;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -459,13 +489,14 @@ module cu (
             inst_type <= 2'b11;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b1;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b1;
-            brc <= 1'b0;
+            jmp_mode <= 2'b01;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -473,13 +504,14 @@ module cu (
             inst_type <= 2'b11;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b1;
-            brc <= 1'b1;
+            jmp_mode <= 2'b10;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
@@ -487,41 +519,93 @@ module cu (
             inst_type <= 2'b11;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 1; reg_write <= 0; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b1;
-            brc <= 1'b0;
+            jmp_mode <= 2'b01;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end
-        6'b100100 : begin     //SJM
+        6'b100100 : begin   //CAL
             inst_type <= 2'b11;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 1; reg_reset <= 0;
-            src_sel <= 1'b1;
-            wb_sel <= 2'b10;
-            read_mem <= 1'b0;
-            write_mem <= 1'b0;
-            jmp <= 1'b1;
-            brc <= 1'b0;
-            update_flags <= 1'b0;
-            halt <= 1'b0;
-        end
-        6'b111111 : begin     //HLT
-            inst_type <= 2'b00;
-            alu_c_in <= 0; alu_enable <= 0;
-            alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b01;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b01;
+            push <= 1'b1;
+            pop <= 1'b0;
+            update_flags <= 1'b0;
+            halt <= 1'b0;
+        end
+        6'b100101 : begin   //RET
+            inst_type <= 2'b11;
+            alu_c_in <= 0; alu_enable <= 0;
+            alu_sel <= 4'b0000;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b01;
+            wb_sel <= 2'b00;
+            read_mem <= 1'b0;
+            write_mem <= 1'b0;
+            jmp_mode <= 2'b11;
+            push <= 1'b0;
+            pop <= 1'b1;
+            update_flags <= 1'b0;
+            halt <= 1'b0;
+        end
+        6'b100110 : begin   //BIN
+            inst_type <= 2'b00;
+            alu_c_in <= 0; alu_enable <= 0;
+            alu_sel <= 4'b0000;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b00;
+            wb_sel <= 2'b00;
+            read_mem <= 1'b0;
+            write_mem <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
+            update_flags <= 1'b0;
+            halt <= 1'b0;
+
+            i_block <= 1'b1;
+        end
+        6'b100111 : begin   //EIN
+            inst_type <= 2'b00;
+            alu_c_in <= 0; alu_enable <= 0;
+            alu_sel <= 4'b0000;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b00;
+            wb_sel <= 2'b00;
+            read_mem <= 1'b0;
+            write_mem <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
+            update_flags <= 1'b0;
+            halt <= 1'b0;
+
+            i_block <= 1'b0;
+        end
+        6'b111111 : begin   //HLT
+            inst_type <= 2'b00;
+            alu_c_in <= 0; alu_enable <= 0;
+            alu_sel <= 4'b0000;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b00;
+            wb_sel <= 2'b00;
+            read_mem <= 1'b0;
+            write_mem <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b1;
         end
@@ -529,13 +613,14 @@ module cu (
             inst_type <= 2'b00;
             alu_c_in <= 0; alu_enable <= 0;
             alu_sel <= 4'b0000;
-            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; reg_reset <= 0;
-            src_sel <= 1'b0;
+            reg_read_a <= 0; reg_read_b <= 0; reg_write <= 0; 
+            src_sel <= 2'b00;
             wb_sel <= 2'b00;
             read_mem <= 1'b0;
             write_mem <= 1'b0;
-            jmp <= 1'b0;
-            brc <= 1'b0;
+            jmp_mode <= 2'b00;
+            push <= 1'b0;
+            pop <= 1'b0;
             update_flags <= 1'b0;
             halt <= 1'b0;
         end

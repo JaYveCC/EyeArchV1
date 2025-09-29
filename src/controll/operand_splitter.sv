@@ -1,4 +1,4 @@
-module inst_mux (
+module operand_splitter (
     input logic [1:0] inst_type,
     input logic [31:6] inst_operands,
     output logic [4:0] src1, src2, dest, cond,

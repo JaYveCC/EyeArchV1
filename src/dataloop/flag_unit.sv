@@ -1,4 +1,4 @@
-module bu (
+module flag_unit (
     input logic c_out,
     input logic [15:0] wb_val,
     output wire [7:0] flags

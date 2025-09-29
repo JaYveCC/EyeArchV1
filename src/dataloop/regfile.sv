@@ -20,7 +20,7 @@ module regfile (
         end        
     end
 
-    always @(negedge clk) begin
+    always_ff @(negedge clk) begin
         if (reset) begin
             for (int i = 0; i < 32; i++) begin
                 mem[i] <= 16'b0;
