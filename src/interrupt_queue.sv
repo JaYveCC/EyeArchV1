@@ -15,17 +15,22 @@ module interrupt_queue (
     logic [4:0] w_pointer_tmp;
 
     logic full;
-    wire empty;
+    logic empty = 1'b1;
 
-    assign empty = (w_pointer == r_pointer) ? 1'b1 : 1'b0;
+    logic empty_tmp;
 
     assign execute_interrupt = (!empty && !i_block) ? 1'b1 : 1'b0;
 
     always @(posedge clk) begin
-    if (!empty && !i_block) begin
+    /* verilator lint_off BLKSEQ */
+    empty_tmp = (r_pointer == w_pointer) ? 1'b1 : 1'b0;
+
+    if (!empty_tmp && !i_block) begin
             executing_id <= lifo[r_pointer];
             r_pointer <= r_pointer + 5'b1;
-        end
+    end
+    empty <= empty_tmp;
+    /* verilator lint_on BLKSEQ */
     end
 
     always @(negedge clk) begin

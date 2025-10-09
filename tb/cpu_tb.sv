@@ -35,4 +35,12 @@ module cpu_tb;
             if (count >= 10000) $finish;
         end
     end
+
+    initial begin
+        #4000
+        interrupt_id[5] = 16'b101;
+        interrupt_confirm[5] = 1'b1;
+        #40
+        interrupt_confirm[5] = 1'b0;
+    end
 endmodule

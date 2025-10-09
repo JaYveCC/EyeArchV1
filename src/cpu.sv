@@ -18,11 +18,15 @@ module cpu (
     wire [31:0] instruction;
 
     //controll
-    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, i_block, update_flags;
+    /* verilator lint_off SYNCASYNCNET */
+    wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, update_flags, i_enable, i_block;
     wire [1:0] src_sel, wb_sel, jmp_mode;
     wire [3:0] alu_sel;
     wire [4:0] src1, src2, dest, cond;
     wire [15:0] b_bus, imm;
+    /* verilator lint_on SYNCASYNCNET */
+
+    reg i_allow = 1'b1;
 
     //dataloop
     wire [7:0] flags;
@@ -99,11 +103,11 @@ module cpu (
     );
 
     callstack callstack (
-        .push (push),
-        .pop (pop | execute_interrupt),
+        .push (push | execute_interrupt),
+        .pop (pop),
         .reset (reset),
         .clk (clk),
-        .d_in ({pc_addr, curent_flags}),
+        .d_in ({curent_flags, pc_addr + 16'b1}),
         .full (cs_full),
         .empty (cs_empty),
         .d_out (cs_d_out)
@@ -112,11 +116,21 @@ module cpu (
     interrupt_queue interrupt_queue (
         .clk (clk),
         .reset (reset),
-        .i_block (i_block | cs_full),
+        .i_block (~i_allow | cs_full),
         .interrupt_confirm (interrupt_confirm),
         .interrupt_id (interrupt_id),
         .execute_interrupt (execute_interrupt),
         .executing_id (executing_id),
         .acknowledge (acknowledge)
     );
+
+    always_ff @(negedge clk) begin
+        if (i_block | execute_interrupt) begin
+            i_allow <= 1'b0;
+        end
+        
+        if (i_enable) begin
+            i_allow <= 1'b1;
+        end
+    end
 endmodule

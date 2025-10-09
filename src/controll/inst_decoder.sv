@@ -1,9 +1,13 @@
 module inst_decoder (
     input logic [5:0] opcode,
-    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, i_block, update_flags, halt,
+    output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, i_block, i_enable, update_flags, halt,
     output logic [1:0] inst_type, src_sel, wb_sel, jmp_mode,
     output logic [3:0] alu_sel
 );
+    initial begin
+        i_enable = 1'b1;
+    end
+
     always @(opcode) begin
     case (opcode)
         6'b000001 : begin   //ADD  
@@ -19,6 +23,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000010 : begin   //SUB
@@ -33,6 +39,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000011 : begin   //OR
@@ -48,6 +56,10 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000100 : begin   //AND
@@ -63,6 +75,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000101 : begin   //XOR
@@ -78,6 +92,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000110 : begin   //NOR
@@ -93,6 +109,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b000111 : begin   //NAND
@@ -108,6 +126,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001000 : begin   //XNOR
@@ -123,6 +143,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001001 : begin   //INV
@@ -138,6 +160,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001010 : begin   //BSHL
@@ -153,6 +177,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001011 : begin   //BSHR
@@ -168,6 +194,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001100 : begin   //SBSHL
@@ -183,6 +211,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001101 : begin   //SBSHR
@@ -198,6 +228,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001110 : begin   //LDIM
@@ -213,6 +245,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b001111 : begin   //ADDI
@@ -228,6 +262,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010000 : begin   //SUBI
@@ -243,6 +279,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010001 : begin   //ORI
@@ -258,6 +296,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010010 : begin   //ANDI
@@ -273,6 +313,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010011 : begin   //XORI
@@ -288,6 +330,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010100 : begin   //NORI
@@ -303,6 +347,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010101 : begin   //NANDI
@@ -318,6 +364,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010110 : begin   //XNORI
@@ -333,6 +381,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b010111 : begin   //BSHLI
@@ -348,6 +398,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011000 : begin   //BSHRI
@@ -363,6 +415,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011001 : begin   //SBSHLI
@@ -378,6 +432,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011010 : begin   //SBSHRI
@@ -393,6 +449,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011011 : begin   //ISUBI
@@ -408,6 +466,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b1;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011100 : begin   //MLD
@@ -423,6 +483,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011101 : begin   //MST
@@ -438,6 +500,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011110 : begin   //PML
@@ -453,6 +517,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b011111 : begin   //PMS
@@ -468,6 +534,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100000 : begin     //BRC
@@ -483,6 +551,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100001 : begin     //JMP
@@ -498,6 +568,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100010 : begin     //PBR
@@ -513,6 +585,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100011 : begin     //PJM
@@ -528,6 +602,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100100 : begin   //CAL
@@ -543,6 +619,8 @@ module inst_decoder (
             push <= 1'b1;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100101 : begin   //RET
@@ -558,6 +636,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b1;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
         6'b100110 : begin   //BIN
@@ -573,6 +653,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
 
             i_block <= 1'b1;
@@ -590,6 +672,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b1;
+            i_block <= 1'b0;
             halt <= 1'b0;
 
             i_block <= 1'b0;
@@ -607,6 +691,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b1;
             halt <= 1'b1;
         end
         default : begin     //NOP
@@ -622,6 +708,8 @@ module inst_decoder (
             push <= 1'b0;
             pop <= 1'b0;
             update_flags <= 1'b0;
+            i_enable <= 1'b0;
+            i_block <= 1'b0;
             halt <= 1'b0;
         end
     endcase

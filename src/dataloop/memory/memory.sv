@@ -13,7 +13,7 @@ module memory (
     wire [15:0] mmio_d_out;
 
     always_ff @(negedge clk) begin
-        if (addr == `CSR_INT_DEST && read) begin
+        if (addr == `CSR_INT_DEST && write) begin
             int_dest <= d_in;
         end
     end
