@@ -1,4 +1,4 @@
-module controll (
+module control (
     input logic [31:0] instruction,
 
     output logic alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, i_block, i_enable, update_flags, halt,

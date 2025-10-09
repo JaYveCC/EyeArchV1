@@ -17,7 +17,7 @@ module cpu (
     //prom
     wire [31:0] instruction;
 
-    //controll
+    //control
     /* verilator lint_off SYNCASYNCNET */
     wire alu_c_in, alu_enable, reg_read_a, reg_read_b, reg_write, read_mem, write_mem, push, pop, update_flags, i_enable, i_block;
     wire [1:0] src_sel, wb_sel, jmp_mode;
@@ -50,7 +50,7 @@ module cpu (
     assign cpu_write = write_mem;
     assign cpu_addr = b_bus;
 
-    controll controll (
+    control control (
         .*
     );
 
