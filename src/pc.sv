@@ -31,6 +31,8 @@ module pc (
             2'b10: begin //brc
                 if (tmp_brc_flags[cond[2:0]]) begin
                     addr <= jmp_addr;
+                end else begin
+                    addr <= addr + 16'b1;
                 end
             end
             2'b11: addr <= cs_addr; //ret

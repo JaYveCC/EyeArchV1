@@ -1,4 +1,4 @@
-`include "./src/parameters.svh"
+`include "../src/parameters.svh"
 
 module interrupt_queue (
     input logic clk, reset, i_block,

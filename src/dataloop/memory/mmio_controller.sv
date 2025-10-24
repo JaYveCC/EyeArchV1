@@ -18,7 +18,7 @@ module mmio_controller (
     end
 
     always @(negedge clk) begin
-        if (write && (addr <= `PORT_COUNT*2)) begin
+        if (write && (addr <= (`PORT_COUNT*2)-1)) begin
             ram[port_addr] <= d_in;
             if (port_addr[0]) begin
                 port_d_out[port_addr] <= d_in;
@@ -28,7 +28,7 @@ module mmio_controller (
     end
 
     always_latch begin
-        if (read && (addr <= `PORT_COUNT*2)) begin
+        if (read && (addr <= (`PORT_COUNT*2)-1)) begin
             d_out = port_d_in[port_addr];
         end
     end

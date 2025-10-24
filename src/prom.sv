@@ -6,7 +6,7 @@ module prom (
     reg [31:0] rom [0:65535];
 
     initial begin
-        $readmemh("./mem/rom.mem", rom);
+        $readmemh("../mem/rom.mem", rom);
     end
 
     always @(posedge clk) begin

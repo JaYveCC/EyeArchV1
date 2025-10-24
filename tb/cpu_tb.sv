@@ -19,11 +19,26 @@ module cpu_tb;
 
     int count;
 
-    cpu dut (
-        .*
+    assign interrupt_id[0] = 16'b0;
+    assign interrupt_id[1] = 16'b1;
+
+    cpu cpu (
+        .clk (clk),
+        .reset (reset),
+        .io_port_d_in (io_port_d_in),
+        .interrupt_confirm (interrupt_confirm),
+        .interrupt_id (interrupt_id),
+        .halt (halt),
+        .cpu_read (cpu_read),
+        .cpu_write (cpu_write),
+        .cs_overflow (cs_overflow),
+        .cs_underflow (cs_underflow),
+        .cpu_addr (cpu_addr),
+        .acknowledge (acknowledge),
+        .io_port_d_out (io_port_d_out)
     );
 
-    assign io_port_d_in[0] = 10;
+    assign io_port_d_in[1] = 16'b1001010000000000;
 
     initial begin
         $dumpfile("cpu_tb.vcd");
@@ -37,10 +52,9 @@ module cpu_tb;
     end
 
     initial begin
-        #4000
-        interrupt_id[5] = 16'b101;
-        interrupt_confirm[5] = 1'b1;
-        #40
-        interrupt_confirm[5] = 1'b0;
+        #800
+        interrupt_confirm[0] = 1'b1;
+        #60
+        interrupt_confirm[0] = 1'b0;
     end
 endmodule
